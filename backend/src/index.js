@@ -10,34 +10,43 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// 🔥 CONFIGURACIÓN CORS MÁS PERMISIVA PARA PROBAR
+// Configuración CORS más robusta
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://limari-travel.vercel.app'
+];
+
 app.use(cors({
-  origin: '*',  // Permite TODOS los orígenes (solo para pruebas)
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
-// Manejar preflight requests
-app.options('*', cors());
 
 app.use(express.json());
 
-// Logging
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.path} - Origin: ${req.headers.origin}`);
+  console.log(`${req.method} ${req.path}`);
   next();
 });
 
-// Rutas
+// Tus rutas API
 app.use("/api/auth", authRoutes);
 app.use("/api/tours", tourRoutes);
 app.use("/api/study-trips", studyTripRoutes);
 
+// Ruta de prueba
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
+// Manejador de errores global
 app.use((err, req, res, next) => {
   console.error("Error:", err);
   res.status(500).json({ error: "Internal server error" });
@@ -45,5 +54,4 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`Travel Limari backend running on http://localhost:${PORT}`);
-  console.log(`CORS enabled for all origins (testing mode)`);
 });
