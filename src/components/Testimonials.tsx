@@ -1,6 +1,16 @@
 // components/TestimonialCarousel.tsx
-import { Star, ChevronLeft, ChevronRight, Pause, Play, X, Send, CheckCircle } from "lucide-react";
-import { useState, useEffect, useCallback, useRef } from "react";
+import {
+  Star,
+  ChevronLeft,
+  ChevronRight,
+  Pause,
+  Play,
+  X,
+  Send,
+  CheckCircle
+} from "lucide-react";
+
+import { useState, useEffect, useCallback } from "react";
 
 interface Testimonial {
   id: number;
@@ -17,63 +27,72 @@ const testimonialsData: Testimonial[] = [
     name: "Aylin Ledezma Avalos",
     initial: "AL",
     rating: 5,
-    comment: "Turismo Buses Pulpica es, sin duda, una de las mejores opciones para viajar en confort y seguridad. He tenido el placer de viajar con ellos en varias ocasiones y ofrecen un servicio excepcional."
+    comment:
+      "Turismo Buses Pulpica es, sin duda, una de las mejores opciones para viajar en confort y seguridad. He tenido el placer de viajar con ellos en varias ocasiones y ofrecen un servicio excepcional."
   },
   {
     id: 2,
     name: "Nicole Veliz",
     initial: "NV",
     rating: 5,
-    comment: "Viajar con Buses Pulpica es descubrir que la logística impecable y la calidez no tienen por qué ir por caminos separados. Guías amables, transporte con limpieza de hotel y wifi..."
+    comment:
+      "Viajar con Buses Pulpica es descubrir que la logística impecable y la calidez no tienen por qué ir por caminos separados. Guías amables, transporte con limpieza de hotel y wifi..."
   },
   {
     id: 3,
     name: "Krishna",
     initial: "K",
     rating: 5,
-    comment: "Es la segunda vez viajando junto a ellos, sin duda son unos de los mejores en el rubro; siempre al pendiente de los pasajeros y familiarizándose con cada uno de nosotros."
+    comment:
+      "Es la segunda vez viajando junto a ellos, sin duda son unos de los mejores en el rubro; siempre al pendiente de los pasajeros y familiarizándose con cada uno de nosotros."
   },
   {
     id: 4,
     name: "Valeska Concha",
     initial: "VC",
     rating: 5,
-    comment: "En mi experiencia es la mejor empresa de turismo que existe en la zona. Responsables, organizados, ordenados en todo lo que respecta a la parte logística de cada viaje."
+    comment:
+      "En mi experiencia es la mejor empresa de turismo que existe en la zona. Responsables, organizados, ordenados en todo lo que respecta a la parte logística de cada viaje."
   },
   {
     id: 5,
     name: "Edith Mardones Avila",
     initial: "EM",
     rating: 5,
-    comment: "Máquina de última generación con tecnología que facilita el viaje. Tripulación a bordo de primera calidad, amables y empáticos con los pasajeros."
+    comment:
+      "Máquina de última generación con tecnología que facilita el viaje. Tripulación a bordo de primera calidad, amables y empáticos con los pasajeros."
   },
   {
     id: 6,
     name: "Carlos Rojas",
     initial: "CR",
     rating: 5,
-    comment: "Los micros llegaron a tiempo, fueron súper cómodos y el servicio fue amable en todo el recorrido."
+    comment:
+      "Los micros llegaron a tiempo, fueron súper cómodos y el servicio fue amable en todo el recorrido."
   },
   {
     id: 7,
     name: "María González",
     initial: "MG",
     rating: 5,
-    comment: "Excelente servicio, muy puntuales y el bus muy cómodo. Viajé con mi familia y todos quedamos encantados."
+    comment:
+      "Excelente servicio, muy puntuales y el bus muy cómodo. Viajé con mi familia y todos quedamos encantados."
   }
 ];
 
 export default function TestimonialCarousel() {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>(testimonialsData);
+  const [testimonials, setTestimonials] =
+    useState<Testimonial[]>(testimonialsData);
+
   const [startIndex, setStartIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [animationDirection, setAnimationDirection] = useState<"left" | "right">("left");
-  
+
   // Estados para el modal de reseña
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formError, setFormError] = useState("");
+
   const [formData, setFormData] = useState({
     name: "",
     rating: 5,
@@ -83,9 +102,11 @@ export default function TestimonialCarousel() {
   // Cargar reseñas guardadas al iniciar
   useEffect(() => {
     const stored = localStorage.getItem("limari_reviews");
+
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
+
         if (Array.isArray(parsed) && parsed.length > 0) {
           setTestimonials(parsed);
         }
@@ -95,18 +116,22 @@ export default function TestimonialCarousel() {
     }
   }, []);
 
-  const visibleTestimonials = testimonials.slice(startIndex, startIndex + 3);
+  const visibleTestimonials = testimonials.slice(
+    startIndex,
+    startIndex + 3
+  );
+
   const hasNext = startIndex + 3 < testimonials.length;
 
   const nextSlide = useCallback(() => {
     if (isAnimating) return;
-    
+
     if (hasNext) {
-      setAnimationDirection("left");
       setIsAnimating(true);
-      
+
       setTimeout(() => {
         setStartIndex((prev) => prev + 1);
+
         setTimeout(() => {
           setIsAnimating(false);
         }, 50);
@@ -119,13 +144,13 @@ export default function TestimonialCarousel() {
 
   const prevSlide = () => {
     if (isAnimating) return;
-    
+
     if (startIndex > 0) {
-      setAnimationDirection("right");
       setIsAnimating(true);
-      
+
       setTimeout(() => {
         setStartIndex((prev) => prev - 1);
+
         setTimeout(() => {
           setIsAnimating(false);
         }, 50);
@@ -136,7 +161,7 @@ export default function TestimonialCarousel() {
   // Auto-play cada 10 segundos
   useEffect(() => {
     if (!isAutoPlaying) return;
-    
+
     const interval = setInterval(() => {
       if (hasNext) {
         nextSlide();
@@ -150,6 +175,7 @@ export default function TestimonialCarousel() {
 
   const handleUserInteraction = () => {
     setIsAutoPlaying(false);
+
     setTimeout(() => {
       setIsAutoPlaying(true);
     }, 30000);
@@ -158,15 +184,17 @@ export default function TestimonialCarousel() {
   // Manejar el envío de una nueva reseña
   const handleSubmitReview = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name.trim()) {
       setFormError("Por favor ingresa tu nombre");
       return;
     }
+
     if (!formData.comment.trim()) {
       setFormError("Por favor escribe tu opinión");
       return;
     }
+
     if (formData.comment.length < 10) {
       setFormError("Tu opinión debe tener al menos 10 caracteres");
       return;
@@ -175,25 +203,45 @@ export default function TestimonialCarousel() {
     const newReview: Testimonial = {
       id: Date.now(),
       name: formData.name.trim(),
-      initial: formData.name.trim().split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2),
+      initial: formData.name
+        .trim()
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2),
       rating: formData.rating,
       comment: formData.comment.trim()
     };
 
     const updatedReviews = [...testimonials, newReview];
+
     setTestimonials(updatedReviews);
-    localStorage.setItem("limari_reviews", JSON.stringify(updatedReviews));
-    
+
+    localStorage.setItem(
+      "limari_reviews",
+      JSON.stringify(updatedReviews)
+    );
+
     setFormSubmitted(true);
-    setFormData({ name: "", rating: 5, comment: "" });
-    
+
+    setFormData({
+      name: "",
+      rating: 5,
+      comment: ""
+    });
+
     setTimeout(() => {
       setFormSubmitted(false);
       setIsModalOpen(false);
     }, 2000);
   };
 
-  const renderStars = (rating: number, interactive: boolean = false, onStarClick?: (star: number) => void) => {
+  const renderStars = (
+    rating: number,
+    interactive: boolean = false,
+    onStarClick?: (star: number) => void
+  ) => {
     return (
       <div className="flex items-center gap-1">
         {[1, 2, 3, 4, 5].map((star) => (
@@ -218,16 +266,24 @@ export default function TestimonialCarousel() {
 
   const getInitials = (name: string, initial?: string) => {
     if (initial) return initial;
-    const words = name.split(' ');
+
+    const words = name.split(" ");
+
     if (words.length >= 2) {
       return (words[0][0] + words[1][0]).toUpperCase();
     }
+
     return name.charAt(0).toUpperCase();
   };
 
-  const averageRating = testimonials.length > 0
-    ? (testimonials.reduce((acc, t) => acc + t.rating, 0) / testimonials.length).toFixed(1)
-    : "5.0";
+  const averageRating =
+    testimonials.length > 0
+      ? (
+          testimonials.reduce((acc, t) => acc + t.rating, 0) /
+          testimonials.length
+        ).toFixed(1)
+      : "5.0";
+
 
   return (
     <section className="bg-slate-50 py-20 text-slate-900">

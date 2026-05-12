@@ -1,7 +1,7 @@
 // components/UpcomingTrips.tsx
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Calendar, MapPin, Users, ChevronRight, Clock, AlertCircle } from "lucide-react";
+import { Calendar,  ChevronRight, } from "lucide-react";
 import { getTours } from "../services/storageService";
 import type { Tour } from "../types";
 
@@ -28,27 +28,6 @@ export default function UpcomingTrips() {
     loadTours();
   }, []);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "limited":
-        return "bg-yellow-100 text-yellow-700";
-      case "available":
-        return "bg-green-100 text-green-700";
-      default:
-        return "bg-slate-100 text-slate-600";
-    }
-  };
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case "limited":
-        return "Últimos Cupos";
-      case "available":
-        return "Disponible";
-      default:
-        return "";
-    }
-  };
 
   if (loading) {
     return (

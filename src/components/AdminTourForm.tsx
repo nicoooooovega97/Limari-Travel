@@ -1,6 +1,6 @@
 // components/AdminTourForm.tsx
 import { useState } from "react";
-import type { Tour, TourStatus } from "../types";
+import type { Tour} from "../types";
 import { X, Plus, Trash2 } from "lucide-react";
 
 interface AdminTourFormProps {
@@ -9,10 +9,6 @@ interface AdminTourFormProps {
   onCancel: () => void;
 }
 
-const months = [
-  "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-  "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-];
 
 export default function AdminTourForm({ tour, onSave, onCancel }: AdminTourFormProps) {
   const [formData, setFormData] = useState<Partial<Tour>>(

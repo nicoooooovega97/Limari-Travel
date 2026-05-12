@@ -6,12 +6,14 @@ const tours = [
     image: "/tour1.jpg",
     date: "15 Junio 2026",
     price: "$49.990",
+    id: 1,
   },
   {
     title: "San Pedro de Atacama",
     image: "/tour2.jpg",
     date: "22 Julio 2026",
     price: "$320.000",
+    id: 2,
   },
 ]
 

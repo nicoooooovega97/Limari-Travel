@@ -13,13 +13,6 @@ const months = [
 
 type StatusType = "all" | "available" | "limited" | "sold_out";
 
-const statusLabels: Record<StatusType, string> = {
-  all: "Todos los estados",
-  available: "Disponibles",
-  limited: "Últimos Cupos",
-  sold_out: "Agotados"
-};
-
 export default function ToursSection() {
   const [tours, setTours] = useState<Tour[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
