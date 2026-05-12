@@ -60,10 +60,13 @@ export default function AdminStudyTripForm({ trip, onSave, onCancel }: AdminStud
     if (value.trim()) {
       setFormData(prev => ({
         ...prev,
-        includes: {
-          ...prev.includes,
-          [category]: [...(prev.includes?.[category] || []), value.trim()]
-        }
+              includes: {
+        transport: prev.includes?.transport || [],
+        meals: prev.includes?.meals || [],
+        tickets: prev.includes?.tickets || [],
+        itinerary: prev.includes?.itinerary || [],
+        [category]: [...(prev.includes?.[category] || []), value.trim()]
+      }
       }));
       setter("");
     }
@@ -72,8 +75,11 @@ export default function AdminStudyTripForm({ trip, onSave, onCancel }: AdminStud
   const removeIncludeItem = (category: "transport" | "meals" | "tickets" | "itinerary", index: number) => {
     setFormData(prev => ({
       ...prev,
-      includes: {
-        ...prev.includes,
+            includes: {
+        transport: prev.includes?.transport || [],
+        meals: prev.includes?.meals || [],
+        tickets: prev.includes?.tickets || [],
+        itinerary: prev.includes?.itinerary || [],
         [category]: (prev.includes?.[category] || []).filter((_, i) => i !== index)
       }
     }));
