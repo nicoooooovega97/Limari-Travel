@@ -14,7 +14,7 @@ import {
 } from "../services/storageService";
 import AdminTourForm from "../components/AdminTourForm";
 import AdminStudyTripForm from "../components/AdminStudyTripForm";
-import { LogOut, Plus, Edit, Trash2, Bus, GraduationCap, X } from "lucide-react";
+import { LogOut, Plus, Edit, Trash2, Bus, GraduationCap, X, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 type TabType = "tours" | "studyTrips";
@@ -79,6 +79,18 @@ export default function AdminDashboard() {
     await loadData();
     setDeleteConfirm(null);
   };
+
+  // Mostrar loading mientras se cargan los datos
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="h-12 w-12 text-cyan-600 animate-spin mx-auto" />
+          <p className="mt-4 text-slate-600">Cargando panel de administración...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50">
