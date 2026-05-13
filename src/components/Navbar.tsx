@@ -1,6 +1,6 @@
 // components/Navbar.tsx
 import { Link, NavLink } from "react-router-dom"
-import { Menu, X} from "lucide-react"
+import { Menu, X, Mail, MessageCircle, Clock } from "lucide-react"
 import { useState, useEffect } from "react"
 
 export default function Navbar() {
@@ -28,39 +28,29 @@ export default function Navbar() {
       {/* Top bar - originalmente siempre visible, en móvil se oculta al hacer scroll */}
       <div 
         className={`text-slate-100 transition-all duration-300 overflow-hidden ${
-          isScrolled ? "max-h-0 py-0 opacity-0 md:max-h-24 md:py-3 md:opacity-100" : "max-h-24 py-3 opacity-100"
+          isScrolled ? "max-h-0 py-0 opacity-0 md:max-h-28 md:py-4 md:opacity-100" : "max-h-28 py-4 opacity-100"
         }`}
         style={{ backgroundColor: "#020873" }}
       >
-        <div className="mx-auto flex flex-col gap-2 px-6 py-3 text-center text-xs sm:flex-row sm:items-center sm:justify-between sm:text-left">
-          <span className="inline-flex items-center justify-center gap-2" style={{ color: "#F2AB27" }}>
-            <span>WhatsApp</span>
-            <strong className="text-slate-100" style={{ color: "#F2AB27" }}>+56 9 1234 5678</strong>
-            <span style={{ color: "#F2AB27" }}>·</span>
-            <span style={{ color: "#F2AB27" }}>purbea@gmail.com</span>
-          </span>
-
-          <div 
-            className="inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm shadow-sm"
-            style={{ 
-              backgroundColor: "#020873", 
-              borderColor: "#F2AB27",
-              color: "#F2AB27"
-            }}
-          >
-            Servicio Turístico Registrado en Sernatur
+        <div className="mx-auto flex flex-col gap-3 px-6 py-2 text-center text-sm sm:flex-row sm:items-center sm:justify-between">
+          {/* Lado izquierdo - Horario de atención */}
+          <div className="inline-flex items-center justify-center gap-3 sm:justify-start">
+            <Clock className="h-5 w-5" style={{ color: "#F2AB27" }} />
+            <span className="font-medium" style={{ color: "#F2AB27" }}>Horario de atención: 7:00 a 23:00 horas</span>
           </div>
 
-          <div className="inline-flex items-center justify-center gap-3 sm:justify-end">
+          {/* Lado derecho - Redes sociales y contacto */}
+          <div className="inline-flex items-center justify-center gap-4 sm:justify-end">
+            {/* Facebook */}
             <a 
               href="https://www.facebook.com/p/Limar%C3%AD-Travel-100068878241335/?locale=es_LA" 
               target="_blank" 
               rel="noreferrer" 
-              className="transition hover:text-white"
+              className="transition hover:opacity-80"
               style={{ color: "#F2AB27" }}
             >
               <svg 
-                className="h-4 w-4" 
+                className="h-5 w-5" 
                 viewBox="0 0 24 24" 
                 fill="none" 
                 stroke="currentColor" 
@@ -72,15 +62,17 @@ export default function Navbar() {
                 <path d="M18 2h-3a6 6 0 0 0-6 6v3H6v4h3v8h4v-8h3l1-4h-4V8a2 2 0 0 1 2-2h2V2z" />
               </svg>
             </a>
+            
+            {/* Instagram */}
             <a 
               href="https://www.instagram.com/limari_travel?igsh=cDJscG41OGh1NHd1" 
               target="_blank" 
               rel="noreferrer" 
-              className="transition hover:text-white"
+              className="transition hover:opacity-80"
               style={{ color: "#F2AB27" }}
             >
               <svg 
-                className="h-4 w-4" 
+                className="h-5 w-5" 
                 viewBox="0 0 24 24" 
                 fill="none" 
                 stroke="currentColor" 
@@ -94,11 +86,39 @@ export default function Navbar() {
                 <path d="M17.5 6.5h.01" />
               </svg>
             </a>
+
+            {/* Primera línea separadora */}
+            <span className="text-slate-400 text-base">|</span>
+            
+            {/* WhatsApp */}
+            <a 
+              href="https://wa.me/56912345678" 
+              target="_blank" 
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 transition hover:opacity-80"
+              style={{ color: "#F2AB27" }}
+            >
+              <MessageCircle className="h-5 w-5" />
+              <span className="font-medium">+56 9 1234 5678</span>
+            </a>
+
+            {/* Segunda línea separadora */}
+            <span className="text-slate-400 text-base">|</span>
+            
+            {/* Correo */}
+            <a 
+              href="mailto:prueba@gmail.com"
+              className="inline-flex items-center gap-2 transition hover:opacity-80"
+              style={{ color: "#F2AB27" }}
+            >
+              <Mail className="h-5 w-5" />
+              <span className="font-medium">prueba@gmail.com</span>
+            </a>
           </div>
         </div>
       </div>
 
-      {/* Main navbar - igual que original */}
+      {/* Resto del navbar igual... */}
       <div className="bg-slate-100 border-b border-slate-200 shadow-sm">
         <div className="mx-auto grid gap-4 px-6 py-4 sm:grid-cols-[auto_1fr] sm:items-center">
           <Link to="/" className="inline-flex items-center gap-3 text-slate-950">
@@ -122,18 +142,25 @@ export default function Navbar() {
               Inicio
             </NavLink>
             <NavLink 
-              to="/tours" 
+              to="/about" 
               className={({ isActive }) => isActive ? activeClass : inactiveClass}
               style={({ isActive }) => isActive ? { borderBottomColor: "#F2AB27", color: "#F2AB27" } : {}}
             >
-              Tours
+              Quienes Somos
+            </NavLink>
+            <NavLink 
+              to="/national-tours" 
+              className={({ isActive }) => isActive ? activeClass : inactiveClass}
+              style={({ isActive }) => isActive ? { borderBottomColor: "#F2AB27", color: "#F2AB27" } : {}}
+            >
+              Tours Nacionales
             </NavLink>
             <NavLink 
               to="/study-trips" 
               className={({ isActive }) => isActive ? activeClass : inactiveClass}
               style={({ isActive }) => isActive ? { borderBottomColor: "#F2AB27", color: "#F2AB27" } : {}}
             >
-              Giras
+              Tours Internacionales
             </NavLink>
             <NavLink 
               to="/specials" 
@@ -148,13 +175,6 @@ export default function Navbar() {
               style={({ isActive }) => isActive ? { borderBottomColor: "#F2AB27", color: "#F2AB27" } : {}}
             >
               Galería
-            </NavLink>
-            <NavLink 
-              to="/about" 
-              className={({ isActive }) => isActive ? activeClass : inactiveClass}
-              style={({ isActive }) => isActive ? { borderBottomColor: "#F2AB27", color: "#F2AB27" } : {}}
-            >
-              Nosotros
             </NavLink>
             <NavLink 
               to="/faq" 
@@ -207,7 +227,7 @@ export default function Navbar() {
               Inicio
             </NavLink>
             <NavLink 
-              to="/tours" 
+              to="/about" 
               onClick={closeMenu}
               className={({ isActive }) => 
                 `px-6 py-3 text-base font-medium transition ${
@@ -217,7 +237,20 @@ export default function Navbar() {
                 }`
               }
             >
-              Tours
+              Quienes Somos
+            </NavLink>
+            <NavLink 
+              to="/national-tours" 
+              onClick={closeMenu}
+              className={({ isActive }) => 
+                `px-6 py-3 text-base font-medium transition ${
+                  isActive 
+                    ? "bg-cyan-50 text-[#F2AB27] border-l-4 border-[#F2AB27]" 
+                    : "text-slate-700 hover:bg-slate-200"
+                }`
+              }
+            >
+              Tours Nacionales
             </NavLink>
             <NavLink 
               to="/study-trips" 
@@ -257,19 +290,6 @@ export default function Navbar() {
               }
             >
               Galería
-            </NavLink>
-            <NavLink 
-              to="/about" 
-              onClick={closeMenu}
-              className={({ isActive }) => 
-                `px-6 py-3 text-base font-medium transition ${
-                  isActive 
-                    ? "bg-cyan-50 text-[#F2AB27] border-l-4 border-[#F2AB27]" 
-                    : "text-slate-700 hover:bg-slate-200"
-                }`
-              }
-            >
-              Nosotros
             </NavLink>
             <NavLink 
               to="/faq" 

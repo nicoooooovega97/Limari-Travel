@@ -1,4 +1,4 @@
-import { Award, Bus, Heart, MapPin, Shield, Users, Clock, Compass, Star } from "lucide-react";
+import { Award, Bus, MapPin, Shield, Users, Compass, Star } from "lucide-react";
 
 export default function AboutSection() {
   return (
@@ -11,7 +11,7 @@ export default function AboutSection() {
             Experiencia en Viajar
           </p>
           <h1 className="mt-4 text-4xl font-semibold sm:text-5xl">
-            Buses Pulpica,{" "}
+            Limari Travel,{" "}
             <span className="bg-gradient-to-r from-fuchsia-600 to-cyan-600 bg-clip-text text-transparent">
               Experiencia en Viajar
             </span>
@@ -71,7 +71,7 @@ export default function AboutSection() {
               <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-amber-100 to-amber-50 p-6 text-center">
                 <MapPin className="mx-auto h-8 w-8 text-amber-600" />
                 <p className="mt-2 text-2xl font-bold text-amber-700">Chile</p>
-                <p className="text-sm text-slate-600">Cobertura nacional</p>
+                <p className="text-sm text-slate-600">Cobertura nacional e internacional</p>
               </div>
               <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-100 to-indigo-50 p-6 text-center">
                 <Award className="mx-auto h-8 w-8 text-indigo-600" />
@@ -106,27 +106,6 @@ export default function AboutSection() {
             <p className="mt-4 text-slate-600">
               “Ser la mejor empresa de viajes de turismo de la región de Coquimbo, reconocida por la calidad de nuestras experiencias y el compromiso con cada Viajero”
             </p>
-          </div>
-        </div>
-
-        {/* Valores / Sello distintivo */}
-        <div className="mt-20">
-          <div className="text-center">
-            <h2 className="text-3xl font-semibold">Nuestro Compromiso</h2>
-            <p className="mt-2 text-slate-500">Lo que nos hace diferentes</p>
-          </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {[
-              { icon: Heart, title: "Trato Cercano", desc: "La calidez que nos caracteriza desde nuestros inicios" },
-              { icon: Shield, title: "Seguridad", desc: "Flota moderna y conductores altamente capacitados" },
-              { icon: Clock, title: "Puntualidad", desc: "Respeto por tu tiempo y compromiso con cada viaje" },
-            ].map((item) => (
-              <div key={item.title} className="rounded-2xl border border-slate-100 bg-white p-6 text-center shadow-sm transition hover:shadow-md">
-                <item.icon className="mx-auto h-10 w-10 text-cyan-500" />
-                <h3 className="mt-4 text-xl font-semibold">{item.title}</h3>
-                <p className="mt-2 text-slate-500">{item.desc}</p>
-              </div>
-            ))}
           </div>
         </div>
       </div>

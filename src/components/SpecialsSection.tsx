@@ -43,14 +43,14 @@ export default function SpecialsSection() {
           <div className="grid items-center gap-8 md:grid-cols-2">
             <div>
               <MapPin className="h-8 w-8 text-cyan-600" />
-              <h2 className="mt-4 text-2xl font-semibold">Cobertura Regional y Nacional</h2>
+              <h2 className="mt-4 text-2xl font-semibold">Cobertura Nacional e Internacional</h2>
               <p className="mt-4 text-slate-600">
                 Realizamos viajes dentro de la Región de Coquimbo y a lo largo de todo Chile, adaptándonos a tu itinerario, horarios y requerimientos específicos.
               </p>
             </div>
             <div className="rounded-2xl bg-white p-4 text-center shadow-md">
               <p className="font-mono text-sm text-slate-400">Destinos destacados</p>
-              <p className="mt-2 text-lg font-semibold">La Serena • Santiago • Viña del Mar • San Pedro de Atacama</p>
+              <p className="mt-2 text-lg font-semibold">La Serena • Santiago • San Pedro de Atacama</p>
             </div>
           </div>
         </div>

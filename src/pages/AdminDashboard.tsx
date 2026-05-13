@@ -1,4 +1,4 @@
-// pages/AdminDashboard.tsx
+// pages/AdminDashboard.tsx - Versión actualizada con nueva pestaña
 import { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import type { StudyTrip, Tour } from "../types";
@@ -14,10 +14,11 @@ import {
 } from "../services/storageService";
 import AdminTourForm from "../components/AdminTourForm";
 import AdminStudyTripForm from "../components/AdminStudyTripForm";
-import { LogOut, Plus, Edit, Trash2, Bus, GraduationCap, X, Loader2 } from "lucide-react";
+import AdminGalleryPanel from "../components/AdminGalleryPanel";
+import { LogOut, Plus, Edit, Trash2, Bus, GraduationCap, X, Loader2, Image } from "lucide-react";
 import { Link } from "react-router-dom";
 
-type TabType = "tours" | "studyTrips";
+type TabType = "tours" | "studyTrips" | "gallery";
 
 export default function AdminDashboard() {
   const { logout } = useAuth();
@@ -29,7 +30,6 @@ export default function AdminDashboard() {
   const [editingTour, setEditingTour] = useState<Tour | undefined>(undefined);
   const [editingStudyTrip, setEditingStudyTrip] = useState<StudyTrip | undefined>(undefined);
   const [deleteConfirm, setDeleteConfirm] = useState<{ type: TabType; id: number; title: string } | null>(null);
-
   const [loading, setLoading] = useState(true);
 
   const loadData = async () => {
@@ -148,6 +148,17 @@ export default function AdminDashboard() {
                 {studyTrips.length}
               </span>
             </button>
+            <button
+              onClick={() => setActiveTab("gallery")}
+              className={`flex items-center gap-2 border-b-2 px-2 py-4 text-sm font-medium transition ${
+                activeTab === "gallery"
+                  ? "border-cyan-600 text-cyan-600"
+                  : "border-transparent text-slate-500 hover:text-slate-700"
+              }`}
+            >
+              <Image className="h-4 w-4" />
+              Galería de Tours
+            </button>
           </div>
         </div>
       </div>
@@ -158,29 +169,40 @@ export default function AdminDashboard() {
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-semibold text-slate-900">
-              {activeTab === "tours" ? "Gestión de Tours" : "Gestión de Giras de Estudio"}
+              {activeTab === "tours" && "Gestión de Tours"}
+              {activeTab === "studyTrips" && "Gestión de Giras de Estudio"}
+              {activeTab === "gallery" && "Galería de Tours"}
             </h1>
             <p className="mt-1 text-sm text-slate-500">
-              {activeTab === "tours"
-                ? "Administra los tours disponibles para el público"
-                : "Administra los programas de giras de estudio"}
+              {activeTab === "tours" && "Administra los tours disponibles para el público"}
+              {activeTab === "studyTrips" && "Administra los programas de giras de estudio"}
+              {activeTab === "gallery" && "Administra las galerías de imágenes de cada tour"}
             </p>
           </div>
-          <button
-            onClick={() => {
-              if (activeTab === "tours") {
+          {activeTab === "tours" && (
+            <button
+              onClick={() => {
                 setEditingTour(undefined);
                 setShowTourForm(true);
-              } else {
+              }}
+              className="flex items-center gap-2 rounded-lg bg-cyan-600 px-4 py-2 text-white transition hover:bg-cyan-700"
+            >
+              <Plus className="h-4 w-4" />
+              Nuevo Tour
+            </button>
+          )}
+          {activeTab === "studyTrips" && (
+            <button
+              onClick={() => {
                 setEditingStudyTrip(undefined);
                 setShowStudyTripForm(true);
-              }
-            }}
-            className="flex items-center gap-2 rounded-lg bg-cyan-600 px-4 py-2 text-white transition hover:bg-cyan-700"
-          >
-            <Plus className="h-4 w-4" />
-            {activeTab === "tours" ? "Nuevo Tour" : "Nueva Gira"}
-          </button>
+              }}
+              className="flex items-center gap-2 rounded-lg bg-cyan-600 px-4 py-2 text-white transition hover:bg-cyan-700"
+            >
+              <Plus className="h-4 w-4" />
+              Nueva Gira
+            </button>
+          )}
         </div>
 
         {/* Tour List */}
@@ -283,6 +305,9 @@ export default function AdminDashboard() {
             ))}
           </div>
         )}
+
+        {/* Gallery Panel */}
+        {activeTab === "gallery" && <AdminGalleryPanel />}
 
         {/* Modal de confirmación de eliminación */}
         {deleteConfirm && (
