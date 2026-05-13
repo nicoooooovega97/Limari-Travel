@@ -1,6 +1,6 @@
 // components/AdminTourForm.tsx
 import { useState } from "react";
-import type { Tour} from "../types";
+import type { Tour } from "../types";
 import { X, Plus, Trash2 } from "lucide-react";
 
 interface AdminTourFormProps {
@@ -8,7 +8,6 @@ interface AdminTourFormProps {
   onSave: (tour: Tour) => void;
   onCancel: () => void;
 }
-
 
 export default function AdminTourForm({ tour, onSave, onCancel }: AdminTourFormProps) {
   const [formData, setFormData] = useState<Partial<Tour>>(
@@ -161,7 +160,7 @@ export default function AdminTourForm({ tour, onSave, onCancel }: AdminTourFormP
                 <input
                   type="text"
                   name="title"
-                  value={formData.title}
+                  value={formData.title || ""}
                   onChange={handleChange}
                   className="w-full rounded-lg border border-slate-300 px-3 py-2"
                   required
@@ -174,7 +173,7 @@ export default function AdminTourForm({ tour, onSave, onCancel }: AdminTourFormP
                 <input
                   type="text"
                   name="image"
-                  value={formData.image}
+                  value={formData.image || ""}
                   onChange={handleChange}
                   className="w-full rounded-lg border border-slate-300 px-3 py-2"
                   placeholder="/buinzoo.jpg"
@@ -186,7 +185,7 @@ export default function AdminTourForm({ tour, onSave, onCancel }: AdminTourFormP
                 </label>
                 <input
                   type="date"
-                  value={formData.date}
+                  value={formData.date || ""}
                   onChange={handleDateChange}
                   className="w-full rounded-lg border border-slate-300 px-3 py-2"
                   required
@@ -199,7 +198,7 @@ export default function AdminTourForm({ tour, onSave, onCancel }: AdminTourFormP
                 <input
                   type="text"
                   name="price"
-                  value={formData.price}
+                  value={formData.price || ""}
                   onChange={handleChange}
                   className="w-full rounded-lg border border-slate-300 px-3 py-2"
                   placeholder="$49.990"
@@ -213,7 +212,7 @@ export default function AdminTourForm({ tour, onSave, onCancel }: AdminTourFormP
                 <input
                   type="text"
                   name="reservationPrice"
-                  value={formData.reservationPrice}
+                  value={formData.reservationPrice || ""}
                   onChange={handleChange}
                   className="w-full rounded-lg border border-slate-300 px-3 py-2"
                   placeholder="$25.000"
@@ -225,7 +224,7 @@ export default function AdminTourForm({ tour, onSave, onCancel }: AdminTourFormP
                 </label>
                 <select
                   name="status"
-                  value={formData.status}
+                  value={formData.status || "available"}
                   onChange={handleChange}
                   className="w-full rounded-lg border border-slate-300 px-3 py-2"
                 >
@@ -243,7 +242,7 @@ export default function AdminTourForm({ tour, onSave, onCancel }: AdminTourFormP
               </label>
               <textarea
                 name="description"
-                value={formData.description}
+                value={formData.description || ""}
                 onChange={handleChange}
                 rows={3}
                 className="w-full rounded-lg border border-slate-300 px-3 py-2"
@@ -412,7 +411,7 @@ export default function AdminTourForm({ tour, onSave, onCancel }: AdminTourFormP
               </label>
               <textarea
                 name="cancellationPolicy"
-                value={formData.cancellationPolicy}
+                value={formData.cancellationPolicy || ""}
                 onChange={handleChange}
                 rows={2}
                 className="w-full rounded-lg border border-slate-300 px-3 py-2"
